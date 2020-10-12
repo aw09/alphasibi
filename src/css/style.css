@@ -1,0 +1,22 @@
+body{
+    background-color: lightgrey;
+}
+
+header{
+    background-color: yellow;
+    height: 100px;
+}
+menu{
+    background-color: red;
+    height: 500px;
+}
+.container-fluid{
+    background-color: white;
+    margin-top: 100px;
+}
+.bodoni{
+    font-family: "Bodoni Bk BT";
+}
+.franklin{
+    font-family: "Franklin Gothic Book";
+}
