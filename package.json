@@ -20,8 +20,10 @@
     "electron": "^9.3.2"
   },
   "dependencies": {
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "electron-reload": "^1.5.0",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "leapjs": "^1.0.0",
+    "popper.js": "^1.14.3"
   }
 }
