@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var Leap = require('leapjs');
+    </script>
+    <script src="https://js.leapmotion.com/leap-0.2.0.js"></script>
+    <script src="https://js.leapmotion.com/leap-1.0.0.js"></script>
+    <p style="margin-left: 100px" id="info"></p>
+    <input type="button" value="record gesture" onclick="rekam()" id="recorder"></input>
+    <div id="frame"></div>
+    <div id="count"></div>
+    <div id="time"></div>
+
+    <!-- <script src="https://js.leapmotion.com/leap-plugins-0.1.8.js"></script> -->
+    <!-- <script src="//js.leapmotion.com/leap-0.6.3.js"></script> -->
+    <script>
+        var info = document.getElementById('info');
+
+        var controller = new Leap.Controller({
+            host: '127.0.0.1',
+            port: 6437,
+            enableGestures: false,
+            frameEventName: 'animationFrame',
+            useAllPlugins: true
+        });
+
+        controller.connect();
+        controller.setBackground(true);
+        controller.on('frame', onFrame);
+        function onFrame(frame) {
+            if (frame.hands.length > 0) {
+                var hand = frame.hands[0];
+                var fingers = hand.fingers;
+                var position = hand.palmPosition;
+                var velocity = hand.palmVelocity;
+                var direction = hand.direction;
+                info.innerHTML = fingers[0].proximal;
+                console.log(frame);
+            }
+            else
+                info.innerHTML = "";
+        }
+        controller.on('connect', onConnect);
+        function onConnect() {
+            console.log("Connect event");
+        }
+    </script>
+
+</body>
+
+</html>
