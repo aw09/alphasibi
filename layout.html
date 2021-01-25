@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <script src="./node_modules/leapjs/leap-1.1.0.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <div class="row" style="background-color: #E1E1E1; display: flex;">
+        <div id="navbar" class="col-sm-3 navbar">
+            <ul>
+                <li class="nav-item selected" type="button" id="1" onclick="select(1)"><a href="#">Pengenalan</a></li>
+                <li class="nav-item" type="button" id="2" onclick="select(2)"><a href="#" class="">Tes</a></li>
+                <li class="nav-item" type="button" id="3" onclick="select(3)"><a href="#" class="">Permainan</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 content" style="background-color: #F9F9F9; padding: 0vh 1vh 0vh vh;">
+            <h1 id="header" style="color: #707070;">Pengenalan</h1>
+            <div id="pengenalan">
+                <p id="info"></p>
+            </div>
+            <div id="tes"><iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe></div>
+            <div id="permainan">
+                <iframe src="./src/run-dino/index.html" name="myIframe" width="800" height="300"
+                    scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.$ = window.jquery = require("jquery");
+        window.popper = require("popper.js");
+        require("bootstrap");
+    </script>
+    <script>
+        // document.getElementById("navbar").innerHTML='<object type="text/html" data="navbar.html" ></object>';
+        var navbar = document.getElementsByClassName("nav-item")
+        const reset = () => {
+            for (var i = 0; i < navbar.length; i++) {
+                var text = navbar[i].textContent.toLowerCase();
+                navbar[i].setAttribute('class', "nav-item");
+                document.getElementById(text).setAttribute('class', text + " hidden");
+
+            }
+        };
+        const select = (id) => {
+            reset();
+            var selected = document.getElementById(id);
+            var text = selected.textContent;
+            document.getElementById("header").innerHTML = text;
+            selected.setAttribute('class', "nav-item selected")
+            document.getElementById(text.toLowerCase()).setAttribute('class', "");
+        }        
+        select(1);
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#permainan').attr('src', './src/run-dino/index.html');
+        });
+    </script>
+    <script>
+        var info = document.getElementById('info');
+
+        var controller = new Leap.Controller({
+            host: '127.0.0.1',
+            port: 6437,
+            enableGestures: false,
+            frameEventName: 'animationFrame',
+            useAllPlugins: true
+        });
+
+        controller.connect();
+
+        window.TO_RAD = Math.PI / 180;
+        window.TO_DEG = 1 / TO_RAD; Leap.loop({
+
+            // frame callback is run before individual frame components
+            frame: function (frame) {
+                info.innerHTML = ''
+            },
+
+            // hand callbacks are run once for each hand in the frame
+            hand: function (hand) {
+                info.innerHTML += hand.type + ',' + hand.palmPosition + ',' + hand.direction + ',' + hand.palmVelocity + '<br/>';
+                var finger = hand.fingers.forEach(function (finger) {
+                    info.innerHTML += finger.type + ',' + finger.dipPosition + ',' + finger.pipPosition + ',' + finger.mcpPosition + ',' + finger.carpPosition + '<br/>'
+                })
+
+                // info.innerHTML += "Hand: " + hand.type + ' &nbsp;roll: ' + Math.round(hand.roll() * TO_DEG) + '°<br/>'
+            }
+
+        });
+    </script>
+</body>
+
+</html>

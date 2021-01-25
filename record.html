@@ -8,22 +8,22 @@
 </head>
 
 <body>
-    <script>
-        // var Leap = require('leapjs');
-    </script>
-    <script src="https://js.leapmotion.com/leap-0.2.0.js"></script>
-    <script src="https://js.leapmotion.com/leap-1.0.0.js"></script>
+
+    <!-- <script src="./src/leapjs/1.0.0.js"></script> -->
+    <!-- <script src="./src/leapjs/0.6.3.js"></script> -->
+    <script src="./node_modules/leapjs/leap-1.1.0.js"></script>
+    <!-- <script>const Leap = require('leapjs')</script> -->
+    <p></p>
     <p style="margin-left: 100px" id="info"></p>
+    <p style="margin-left: 100px" id="status" class="status"></p>
+    <button></button>
     <input type="button" value="record gesture" onclick="rekam()" id="recorder"></input>
-    <div id="frame"></div>
-    <div id="count"></div>
-    <div id="time"></div>
 
     <!-- <script src="https://js.leapmotion.com/leap-plugins-0.1.8.js"></script> -->
     <!-- <script src="//js.leapmotion.com/leap-0.6.3.js"></script> -->
     <script>
         var info = document.getElementById('info');
-
+        var status = document.getElementById('status');
         var controller = new Leap.Controller({
             host: '127.0.0.1',
             port: 6437,
@@ -32,26 +32,61 @@
             useAllPlugins: true
         });
 
-        controller.connect();
         controller.setBackground(true);
-        controller.on('frame', onFrame);
-        function onFrame(frame) {
-            if (frame.hands.length > 0) {
-                var hand = frame.hands[0];
-                var fingers = hand.fingers;
-                var position = hand.palmPosition;
-                var velocity = hand.palmVelocity;
-                var direction = hand.direction;
-                info.innerHTML = fingers[0].proximal;
-                console.log(frame);
-            }
-            else
-                info.innerHTML = "";
-        }
-        controller.on('connect', onConnect);
+        controller.connect();
+        // controller.on('frame', function (frame) {
+        //     console.log(frame);
+        // });
+        // controller.on('frame', onFrame);
+        // function onFrame(frame) {
+        //     if (frame.hands.length > 0) {
+        //         info.innerHTML = "";
+        //         var hands = frame.hands;
+        //         var fingers = hands.fingers;
+        //         var position = hands.palmPosition;
+        //         var velocity = hands.palmVelocity;
+        //         var direction = hands.direction;
+        //         info.innerHTML = hands.length + ",";
+        //         for(var i=0;i<hands.length;i++)
+        //             info.innerHTML += hands[i].isRight + "," + hands[i].palmPosition + ",";
+        //     }
+        //     else
+        //         info.innerHTML = "";
+        // }
+        controller.on('deviceAttached', onConnect);
         function onConnect() {
-            console.log("Connect event");
+            status.innerHTML += "connect";
+
+            console.log("connect");
         }
+        controller.on('deviceRemoved', onDisconnect);
+        function onDisconnect() {
+            console.log("disconnect");
+            status.textContent += "disconnect";
+        }
+
+
+        window.TO_RAD = Math.PI / 180;
+        window.TO_DEG = 1 / TO_RAD;
+
+        Leap.loop({
+
+            // frame callback is run before individual frame components
+            frame: function (frame) {
+                info.innerHTML = ''
+            },
+
+            // hand callbacks are run once for each hand in the frame
+            hand: function (hand) {
+                info.innerHTML += hand.type +','+hand.palmPosition+','+hand.direction+','+hand.palmVelocity+'<br/>';
+                var finger = hand.fingers.forEach(function (finger){
+                    info.innerHTML +=  finger.type+','+finger.dipPosition+','+finger.pipPosition+','+finger.mcpPosition+','+finger.carpPosition+'<br/>'
+                })
+                
+                // info.innerHTML += "Hand: " + hand.type + ' &nbsp;roll: ' + Math.round(hand.roll() * TO_DEG) + '°<br/>'
+            }
+
+        });
     </script>
 
 </body>
