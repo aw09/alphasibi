@@ -22,9 +22,14 @@
         <div class="col-sm-9 content" style="background-color: #F9F9F9; padding: 0vh 1vh 0vh vh;">
             <h1 id="header" style="color: #707070;">Pengenalan</h1>
             <div id="pengenalan">
+                <iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe>
                 <p id="info"></p>
             </div>
-            <div id="tes"><iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe></div>
+            <div id="tes" style="padding: 10vh 10vh;">
+                <div id="alphabet" style="border-radius: 1vh; border: 5px solid lightgrey; width: 10vh; height: 10vh; text-align: center;  justify-items: center;" ></div>
+                <br>
+                <button onclick="randomAlphabet()" style="height: 5vh; width: 10vh; border-radius: 50vh; background-color: #cc1515;">Next</button>
+            </div>
             <div id="permainan">
                 <iframe src="./src/run-dino/index.html" name="myIframe" width="800" height="300"
                     scrolling="no"></iframe>
@@ -56,6 +61,19 @@
             document.getElementById(text.toLowerCase()).setAttribute('class', "");
         }        
         select(1);
+    </script>
+    <script>
+        var alphabet = document.getElementById('alphabet');
+
+        const randomAlphabet = () => {
+            var random = String.fromCharCode(65+Math.floor(Math.random() * 26));
+            if(random == alphabet.textContent)
+                randomAlphabet();
+            alphabet.innerHTML = '<h2>'+random+'</h2>';
+            console.log(random)
+
+        }
+        randomAlphabet();
     </script>
     <script>
         $(document).ready(function () {
