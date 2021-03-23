@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <!-- TODO -->
     <div class="row" style="background-color: #E1E1E1; display: flex;">
         <div id="navbar" class="col-sm-3 navbar">
             <ul>
@@ -26,9 +27,13 @@
                 <p id="info"></p>
             </div>
             <div id="tes" style="padding: 10vh 10vh;">
+                
+                
                 <div id="alphabet" style="border-radius: 1vh; border: 5px solid lightgrey; width: 10vh; height: 10vh; text-align: center;  justify-items: center;" ></div>
                 <br>
-                <button onclick="randomAlphabet()" style="height: 5vh; width: 10vh; border-radius: 50vh; background-color: #cc1515;">Next</button>
+                <button type="button" onclick="knn('A')">A</button>
+                <button type="button" onclick="knn('B')">B</button>
+                <!-- <button onclick="randomAlphabet()" style="height: 5vh; width: 10vh; border-radius: 50vh; background-color: #cc1515;">Next</button> -->
             </div>
             <div id="permainan">
                 <iframe src="./src/run-dino/index.html" name="myIframe" width="800" height="300"
@@ -65,15 +70,25 @@
     <script>
         var alphabet = document.getElementById('alphabet');
 
+        const knn = (huruf) => {
+            alphabet.innerHTML = '<h2> </h2>';
+            var first = (huruf=='A') ? 'A' : 'B'
+            var second = (first=='A') ? 'B' : 'A'
+            var randomnumber = Math.floor(Math.random() * (100 - 1 + 1)) + 1
+            var pengenalanHuruf = (randomnumber<70) ? first : second
+
+            setTimeout(function(){
+                alphabet.innerHTML = '<h2>'+pengenalanHuruf+'</h2>';
+            }, 500);
+
+        }
         const randomAlphabet = () => {
             var random = String.fromCharCode(65+Math.floor(Math.random() * 26));
             if(random == alphabet.textContent)
                 randomAlphabet();
             alphabet.innerHTML = '<h2>'+random+'</h2>';
-            console.log(random)
-
         }
-        randomAlphabet();
+        // randomAlphabet();
     </script>
     <script>
         $(document).ready(function () {
@@ -87,31 +102,39 @@
             host: '127.0.0.1',
             port: 6437,
             enableGestures: false,
-            frameEventName: 'animationFrame',
+            frameEventName: 'deviceFrame',
             useAllPlugins: true
         });
 
         controller.connect();
-
+        var lastValidFrameId;
+        var printed;
         window.TO_RAD = Math.PI / 180;
-        window.TO_DEG = 1 / TO_RAD; Leap.loop({
-
+        window.TO_DEG = 1 / TO_RAD; 
+        Leap.loop({
+            
             // frame callback is run before individual frame components
             frame: function (frame) {
-                info.innerHTML = ''
+                if(lastValidFrameId!=undefined && printed == false && frame.hands.length == 0){
+                    tes();
+                    printed = true;
+                }
+                info.innerHTML = frame.currentFrameRate
             },
 
             // hand callbacks are run once for each hand in the frame
             hand: function (hand) {
+                printed = false;
+                lastValidFrameId = hand.frame.id
                 info.innerHTML += hand.type + ',' + hand.palmPosition + ',' + hand.direction + ',' + hand.palmVelocity + '<br/>';
-                var finger = hand.fingers.forEach(function (finger) {
+                hand.fingers.forEach(function (finger) {
                     info.innerHTML += finger.type + ',' + finger.dipPosition + ',' + finger.pipPosition + ',' + finger.mcpPosition + ',' + finger.carpPosition + '<br/>'
                 })
-
-                // info.innerHTML += "Hand: " + hand.type + ' &nbsp;roll: ' + Math.round(hand.roll() * TO_DEG) + '°<br/>'
             }
-
         });
+        var tes = () => {
+            console.log(controller.frame(0).id + " " + controller.frame(20).id)
+        }
     </script>
 </body>
 
