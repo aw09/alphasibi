@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./node_modules/leapjs/leap-1.1.0.min.js"></script>
+    <script src="./node_modules/leapjs/examples/lib/leap-plugins-0.1.6.js"></script>
+
+    <!-- <script src="./node_modules/leapjs-plugins/main/hand-hold/leap.hand-hold.js"></script> -->
+    <script src="./node_modules/leapjs-plugins/main/hand-entry/leap.hand-entry.js"></script>
     <title>Document</title>
 </head>
 
@@ -11,82 +16,84 @@
 
     <!-- <script src="./src/leapjs/1.0.0.js"></script> -->
     <!-- <script src="./src/leapjs/0.6.3.js"></script> -->
-    <script src="./node_modules/leapjs/leap-1.1.0.js"></script>
+    <!-- <script src="./node_modules/leapjs/leap-1.1.0.js"></script> -->
     <!-- <script>const Leap = require('leapjs')</script> -->
     <p></p>
     <p style="margin-left: 100px" id="info"></p>
     <p style="margin-left: 100px" id="status" class="status"></p>
     <button></button>
-    <input type="button" value="record gesture" onclick="rekam()" id="recorder"></input>
+    <input type="button" value="record gesture" onclick="record()" id="recorder"></input>
 
     <!-- <script src="https://js.leapmotion.com/leap-plugins-0.1.8.js"></script> -->
     <!-- <script src="//js.leapmotion.com/leap-0.6.3.js"></script> -->
     <script>
         var info = document.getElementById('info');
         var status = document.getElementById('status');
+        var isRecording = false;
         var controller = new Leap.Controller({
             host: '127.0.0.1',
             port: 6437,
             enableGestures: false,
-            frameEventName: 'animationFrame',
             useAllPlugins: true
         });
-
         controller.setBackground(true);
+        // controller.use('handHold');
+        controller.use('handEntry');
         controller.connect();
-        // controller.on('frame', function (frame) {
-        //     console.log(frame);
-        // });
-        // controller.on('frame', onFrame);
-        // function onFrame(frame) {
-        //     if (frame.hands.length > 0) {
-        //         info.innerHTML = "";
-        //         var hands = frame.hands;
-        //         var fingers = hands.fingers;
-        //         var position = hands.palmPosition;
-        //         var velocity = hands.palmVelocity;
-        //         var direction = hands.direction;
-        //         info.innerHTML = hands.length + ",";
-        //         for(var i=0;i<hands.length;i++)
-        //             info.innerHTML += hands[i].isRight + "," + hands[i].palmPosition + ",";
-        //     }
-        //     else
-        //         info.innerHTML = "";
-        // }
-        controller.on('deviceAttached', onConnect);
-        function onConnect() {
-            status.innerHTML += "connect";
 
-            console.log("connect");
+        var arrayData = [];
+        controller.on('handFound', function(hand){
+            // console.log("MASUK")
+        });
+        controller.on('handLost', function(){
+            // console.log("Keluar")
+            console.log(arrayData)
+            arrayData = [];
+        })
+
+        const record = () => {
+            changeRecording();
+            setTimeout(function(){
+                changeRecording();
+            }, 2000);
         }
-        controller.on('deviceRemoved', onDisconnect);
-        function onDisconnect() {
-            console.log("disconnect");
-            status.textContent += "disconnect";
+        const changeRecording = () => {
+            isRecording = !isRecording;
+            console.log(isRecording);
         }
 
 
-        window.TO_RAD = Math.PI / 180;
-        window.TO_DEG = 1 / TO_RAD;
-
+        
         Leap.loop({
 
             // frame callback is run before individual frame components
             frame: function (frame) {
                 info.innerHTML = ''
+                // if(arrayData.length > 1)
+                    // console.log(arrayData)
             },
 
             // hand callbacks are run once for each hand in the frame
             hand: function (hand) {
+                data = {palm: {type: hand.type, palm:{position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}}, finger: ""}
                 info.innerHTML += hand.type +','+hand.palmPosition+','+hand.direction+','+hand.palmVelocity+'<br/>';
+                let dataFinger = []
                 var finger = hand.fingers.forEach(function (finger){
                     info.innerHTML +=  finger.type+','+finger.dipPosition+','+finger.pipPosition+','+finger.mcpPosition+','+finger.carpPosition+'<br/>'
+                    dataFinger.push({type: finger.type, dip: finger.dipPosition, pip: finger.pipPosition, mcp: finger.mcpPosition, carp: finger.carpPosition})
                 })
-                
                 // info.innerHTML += "Hand: " + hand.type + ' &nbsp;roll: ' + Math.round(hand.roll() * TO_DEG) + '°<br/>'
+                data.finger = dataFinger
+                if(isRecording){
+                    tes(data);
+                }
             }
 
         });
+        const tes = (data) => {
+            let obj = data;
+            arrayData.push(obj)
+        }
     </script>
 
 </body>
