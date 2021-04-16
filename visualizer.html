@@ -19,7 +19,11 @@
       new THREE.Euler(Math.PI / 2, 0, 0)
   );
 
-  Leap.loop({background: true}, {
+  Leap.loop({
+    background: true, 
+    frameEventName: 'animationFrame',
+    optimizeHMD: true
+  }, {
     hand: function (hand) {
 
       hand.fingers.forEach(function (finger) {

@@ -25,6 +25,7 @@
     "jquery": "^3.5.1",
     "leapjs": "^1.0.0",
     "leapjs-plugins": "^0.1.12",
-    "popper.js": "^1.14.3"
+    "popper.js": "^1.14.3",
+    "write-json-file": "^4.3.0"
   }
 }
