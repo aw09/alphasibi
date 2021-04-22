@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="./node_modules/leapjs/leap-1.1.0.js"></script>
+        <script src="./node_modules/leapjs/lib/interaction_box.js"></script>
+    </head>
+    <body>
+        <canvas id="displayArea" width="200" height="100" style="background:#dddddd;"></canvas>
+<script>
+var handPos = { handId: '', normX: 0, normY: 0, normZ: 0, posX: 0, posY: 0, posZ: 0, rotX: 0, rotY: 0, rotZ: 0, set: false };
+
+Leap.loop(function (frame) {
+    var handIds = {};
+    if (frame.hands === undefined) {
+        var handsLength = 0
+    } else {
+        var handsLength = frame.hands.length;
+    }
+
+    var firstHand = true;
+    for (var handId = 0, handCount = handsLength; handId != handCount; handId++) {
+        var hand = frame.hands[handId];
+
+        if (firstHand) {
+            
+            var interactionBox = frame.interactionBox;
+            var normalizedPosition = interactionBox.normalizePoint(hand.palmPosition, true);
+
+            // Convert the normalized coordinates to span the canvas
+            handPos.normX = normalizedPosition[0];
+            handPos.normY = normalizedPosition[2];
+            handPos.normZ = normalizedPosition[1];
+
+            handPos.handId = handId;
+            handPos.posX = (hand.palmPosition[0] * 3);
+            handPos.posY = (hand.palmPosition[2] * 3) - 200;
+            handPos.posZ = (hand.palmPosition[1] * 3) - 400;
+            handPos.rotX = (hand._rotation[2] * 90);
+            handPos.rotY = (hand._rotation[1] * 90);
+            handPos.rotZ = (hand._rotation[0] * 90);
+            handPos.set = true;
+            firstHand = false;
+        }
+
+    }            
+});
+</script>
+    </body>
+</html>

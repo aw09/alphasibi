@@ -21,7 +21,7 @@
     <p></p>
     <p style="margin-left: 100px" id="info"></p>
     <p style="margin-left: 100px" id="status" class="status"></p>
-    <input type="text" id="label"/><input type="number" id="number" disabled>
+    <input type="text" id="label"/><input type="number" id="number" step="1">
     <input type="button" value="record gesture" onclick="record()" id="recorder"></input>
     <div id="frame"></div>
     <iframe style="position: absolute; bottom: 1; height: 500px;" src="./visualizer.html" frameborder="0" width="800" height="300"></iframe>
@@ -35,15 +35,17 @@
         var isRecording = false;
         var number = document.getElementById('number');
         var label = document.getElementById('label');
-        var folder = 'B';
-        number.value = 1;
+        (label.value=="") && (label.value = 'Z')
+        var folder = label.value;
+        var dataLength = 33;
+        number.value = 0;
         var controller = new Leap.Controller({
             host: '127.0.0.1',
             port: 6437,
             enableGestures: false,
-            frameEventName: 'animationFrame',
-            optimizeHMD: true,
-            useAllPlugins: true
+            frameEventName: 'deviceFrame'
+            // optimizeHMD: true,
+            // useAllPlugins: true
         });
         controller.setBackground(true);
         // controller.use('handHold');
@@ -55,11 +57,9 @@
 
         const trigger = () => {
             console.log(arrayData.length)
-            if(arrayData.length==120){
+            if(arrayData.length==33){
                 let obj = {label: folder, data: arrayData}
                 console.log(arrayData)
-                frame.innerHTML += arrayData.length+"<br/>";
-                frame.innerHTML += obj
                 console.log(obj);
                 write(obj, number.value);
                 number.value = Number(number.value)+1;
@@ -75,9 +75,22 @@
             changeRecording();
             setTimeout(function(){
                 changeRecording();
+                let koef = arrayData.length / dataLength;
+                let index = [...Array(dataLength).keys()];
+                let roundedIndex = [];
+                let tempArrayData = []
+                for(let i=0; i<index.length;i++){
+                    index[i]+=1
+                    if(i!=0)
+                        index[i]+=koef;
+                    const rounded = Math.round(index[i]);
+                    tempArrayData.push(arrayData[rounded]);
+                    // roundedIndex.push(rounded);
+                }
+                arrayData = tempArrayData;
+                
             }, 2000);
-            if(arrayData.length!=120)
-                trigger();
+            
         }
         const changeRecording = () => {
             isRecording = !isRecording;
@@ -120,10 +133,12 @@
         }
         const writeJsonFile = require('write-json-file');
 
-        const write = async (obj, fileName) => {
+        const write = (obj, fileName) => {
             console.log('write')
             let path = './Dataset New/'+folder+'/';
-            await writeJsonFile(path+fileName+'.json', obj);
+            // await writeJsonFile(path+fileName+'.json', obj);
+            let fs = require('fs');
+            fs.writeFile(path+fileName+'.json', JSON.stringify(obj), () => {});
         }
     </script>
 
