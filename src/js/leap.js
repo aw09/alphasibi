@@ -1,5 +1,5 @@
 var info = document.getElementById("info");
-
+var dataGlobal
 var controller = new Leap.Controller({
   host: "127.0.0.1",
   port: 6437,
@@ -25,6 +25,7 @@ controller.on('deviceRemoved', function(){
 
 controller.on('handFound', function(hand){
   console.log("handfound");
+  
 });
 
 var lastValidFrameId;
@@ -47,6 +48,10 @@ Leap.loop({
 
   // hand callbacks are run once for each hand in the frame
   hand: function (hand) {
+    // dataGlobal = reasemblyData(hand)
+    // if(hand){}
+    sendmessage(reasemblyData(hand))
+    // console.log(hand)
     printed = false;
     lastValidFrameId = hand.frame.id;
     info.innerHTML +=
@@ -76,3 +81,6 @@ Leap.loop({
 var tes = () => {
   console.log(controller.frame(0).id + " " + controller.frame(20).id);
 };
+const buttonSend = () => {
+  send(dataGlobal)
+}

@@ -50,6 +50,8 @@
         <div class="col-sm-9 content" style="background-color: #F9F9F9; padding: 0vh 1vh 0vh vh;">
             <h1 id="header" style="color: #707070;">Pengenalan</h1>
             <div id="pengenalan">
+                <input id="new_message" type="text" />
+                <button onclick="sendmessage()">SEND !</button>
                 <iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe>
                 <p id="info"></p>
             </div>
@@ -83,7 +85,6 @@
                 var text = navbar[i].textContent.toLowerCase();
                 navbar[i].setAttribute('class', "nav-item");
                 document.getElementById(text).setAttribute('class', text + " hidden");
-
             }
         };
         const select = (id) => {
@@ -103,7 +104,10 @@
             $('#permainan').attr('src', './src/run-dino/index.html');
         });
     </script>
+    <script src="./src/js/socket.js"></script>
+    <script src="./src/js/send.js"></script>
     <script src="./src/js/leap.js"></script>
+    
 </body>
 
 </html>
