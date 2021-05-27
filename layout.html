@@ -51,9 +51,11 @@
             <h1 id="header" style="color: #707070;">Pengenalan</h1>
             <div id="pengenalan">
                 <input id="new_message" type="text" />
-                <button onclick="sendmessage()">SEND !</button>
+                <button onclick="buttonSend()">SEND !</button>
                 <iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe>
+                <p id="res"></p>
                 <p id="info"></p>
+                
             </div>
             <div id="tes" style="padding: 10vh 10vh;">
 
@@ -104,6 +106,8 @@
             $('#permainan').attr('src', './src/run-dino/index.html');
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script>
+    <script src="./src/js/model.js"></script>
     <script src="./src/js/socket.js"></script>
     <script src="./src/js/send.js"></script>
     <script src="./src/js/leap.js"></script>

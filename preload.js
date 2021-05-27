@@ -18,6 +18,9 @@ window.send = (data) => {
   console.log(data)
   socket.emit("message", data)
 }
+window.log = (data) => {
+  console.log(data)
+}
 const io = require("socket.io-client")
 var socket = io.connect("http://localhost:5000");
 

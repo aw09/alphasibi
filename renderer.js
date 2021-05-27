@@ -5,5 +5,5 @@
 // selectively enable features needed in the rendering
 // process.
 document.querySelector('#btnEd').addEventListener('click', () => {
-    window.location.href = "./layout.html";
+    window.location.href = "./record.html";
 })

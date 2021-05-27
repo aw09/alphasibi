@@ -35,7 +35,7 @@
         var isRecording = false;
         var number = document.getElementById('number');
         var label = document.getElementById('label');
-        (label.value=="") && (label.value = 'Z')
+        (label.value=="") && (label.value = 'None')
         var folder = label.value;
         var dataLength = 33;
         number.value = 0;
@@ -56,6 +56,7 @@
         
 
         const trigger = () => {
+            isRecording = false
             console.log(arrayData.length)
             if(arrayData.length==33){
                 let obj = {label: folder, data: arrayData}
@@ -63,6 +64,11 @@
                 console.log(obj);
                 write(obj, number.value);
                 number.value = Number(number.value)+1;
+            }
+            // This function used when no limit capture
+            if(arrayData.length>0){
+                let obj = {label: folder, data: arrayData}
+                write(obj, number.value);
             }
             arrayData = [];
         }
@@ -73,23 +79,23 @@
 
         const record = () => {
             changeRecording();
-            setTimeout(function(){
-                changeRecording();
-                let koef = arrayData.length / dataLength;
-                let index = [...Array(dataLength).keys()];
-                let roundedIndex = [];
-                let tempArrayData = []
-                for(let i=0; i<index.length;i++){
-                    index[i]+=1
-                    if(i!=0)
-                        index[i]+=koef;
-                    const rounded = Math.round(index[i]);
-                    tempArrayData.push(arrayData[rounded]);
-                    // roundedIndex.push(rounded);
-                }
-                arrayData = tempArrayData;
+            // setTimeout(function(){
+            //     changeRecording();
+            //     let koef = arrayData.length / dataLength;
+            //     let index = [...Array(dataLength).keys()];
+            //     let roundedIndex = [];
+            //     let tempArrayData = []
+            //     for(let i=0; i<index.length;i++){
+            //         index[i]+=1
+            //         if(i!=0)
+            //             index[i]+=koef;
+            //         const rounded = Math.round(index[i]);
+            //         tempArrayData.push(arrayData[rounded]);
+            //         // roundedIndex.push(rounded);
+            //     }
+            //     arrayData = tempArrayData;
                 
-            }, 2000);
+            // }, 2000);
             
         }
         const changeRecording = () => {
@@ -135,7 +141,8 @@
 
         const write = (obj, fileName) => {
             console.log('write')
-            let path = './Dataset New/'+folder+'/';
+            console.log(obj)
+            let path = './Dataset New/'+'New'+'/';
             // await writeJsonFile(path+fileName+'.json', obj);
             let fs = require('fs');
             fs.writeFile(path+fileName+'.json', JSON.stringify(obj), () => {});

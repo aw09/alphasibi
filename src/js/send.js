@@ -10,20 +10,39 @@ const reasemblyData = (hand) =>{
     data.finger = dataFinger
     return data
 }
+const jsontoarray = (jsonfile) => {
+    // console.log(jsonfile)
+    array = []
+    let palm = jsonfile.palm
+    let finger = jsonfile.finger
+
+    array = array.concat(palm.position)
+    array = array.concat(palm.direction)
+    array = array.concat(palm.velocity)
+    
+    finger.forEach((item)=>{
+        array = array.concat(item.dip)
+        array = array.concat(item.pip)
+        array = array.concat(item.mcp)
+        array = array.concat(item.carp)
+    })
+    return array
+}
 const send = async (jsonFile) => {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = xhr.responseText;
+            let response = xhr.responseText
             console.log(response)
         }
     };
     let data = JSON.stringify(jsonFile)
-    xhr.send(data);
-    await timer(3000)
+    
+    xhr.send(data)
 }
+
 
 
 // * Using AJAX
