@@ -40,7 +40,6 @@ Leap.loop({
       printed == false &&
       frame.hands.length == 0
     ) {
-      // tes();
       printed = true;
     }
     info.innerHTML = frame.currentFrameRate;
@@ -49,40 +48,17 @@ Leap.loop({
   // hand callbacks are run once for each hand in the frame
   hand: function (hand) {
     dataGlobal = reasemblyData(hand)
-    run(jsontoarray(dataGlobal))
-    // if(hand){}
-    // sendmessage(reasemblyData(hand))
-    // console.log(hand)
+    // run(jsontoarray(dataGlobal))
     printed = false;
     lastValidFrameId = hand.frame.id;
-    // info.innerHTML +=
-    //   hand.type +
-    //   "," +
-    //   hand.palmPosition +
-    //   "," +
-    //   hand.direction +
-    //   "," +
-    //   hand.palmVelocity +
-    //   "<br/>";
-    // hand.fingers.forEach(function (finger) {
-    //   info.innerHTML +=
-    //     finger.type +
-    //     "," +
-    //     finger.dipPosition +
-    //     "," +
-    //     finger.pipPosition +
-    //     "," +
-    //     finger.mcpPosition +
-    //     "," +
-    //     finger.carpPosition +
-    //     "<br/>";
-    // });
   },
 });
 var tes = () => {
   console.log(controller.frame(0).id + " " + controller.frame(20).id);
 };
 const buttonSend = () => {
+  // console.log(jsontoarray(dataGlobal))
   // send(dataGlobal)
-  run(jsontoarray(dataGlobal))
+  // run(jsontoarray(dataGlobal))
+  predict(jsontoarray(dataGlobal))
 }

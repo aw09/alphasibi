@@ -19,7 +19,7 @@ async function run(input){
     console.log(result)
 }
 const getOutput = (array) => {
-    let label = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    let label = ['None','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     let maxVal = 0
     let maxIndex = -1
     array.map((value, index)=>{
@@ -29,4 +29,7 @@ const getOutput = (array) => {
         }
     })
     return [label[maxIndex], maxVal]
+}
+const getBiggestConfidence = (array) => {
+    
 }

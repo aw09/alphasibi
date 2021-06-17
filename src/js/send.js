@@ -1,4 +1,4 @@
-var url = "http://34a5888f8f70.ngrok.io/"
+var url = "http://34.101.133.218:8000/leap"
 const timer = ms => new Promise(res => setTimeout(res, ms))
 const reasemblyData = (hand) =>{
     data = {palm: {type: hand.type, position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}, finger: ""}
@@ -45,4 +45,20 @@ const send = async (jsonFile) => {
 
 
 
-// * Using AJAX
+const predict = async(data) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append('test', data);
+    axios({
+        method: "post",
+        url: url,
+        data: bodyFormData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          console.log(response.data.values.None);
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+}

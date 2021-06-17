@@ -52,7 +52,7 @@
             <div id="pengenalan">
                 <input id="new_message" type="text" />
                 <button onclick="buttonSend()">SEND !</button>
-                <iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe>
+                <!-- <iframe src="./visualizer.html" frameborder="0" width="800" height="300"></iframe> -->
                 <p id="res"></p>
                 <p id="info"></p>
                 
@@ -106,7 +106,9 @@
             $('#permainan').attr('src', './src/run-dino/index.html');
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script>
+    <!--axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script> -->
     <script src="./src/js/model.js"></script>
     <script src="./src/js/socket.js"></script>
     <script src="./src/js/send.js"></script>
