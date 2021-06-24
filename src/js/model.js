@@ -30,6 +30,6 @@ const getOutput = (array) => {
     })
     return [label[maxIndex], maxVal]
 }
-const getBiggestConfidence = (array) => {
+const getBiggestConfidence = (object) => {
     
 }

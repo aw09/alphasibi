@@ -1,5 +1,7 @@
 var info = document.getElementById("info");
 var dataGlobal
+var dataArray = []
+var handFound = false;
 var controller = new Leap.Controller({
   host: "127.0.0.1",
   port: 6437,
@@ -24,10 +26,14 @@ controller.on('deviceRemoved', function(){
 
 
 controller.on('handFound', function(hand){
-  console.log("handfound");
-  
+  handFound = true;
+  // console.log('handFound')
+  // prediksi();
 });
-
+controller.on('handLost', function(hand){
+  handFound = false;
+  prediksi()
+});
 var lastValidFrameId;
 var printed;
 window.TO_RAD = Math.PI / 180;
@@ -48,17 +54,37 @@ Leap.loop({
   // hand callbacks are run once for each hand in the frame
   hand: function (hand) {
     dataGlobal = reasemblyData(hand)
+    // console.log(dataGlobal)
     // run(jsontoarray(dataGlobal))
     printed = false;
     lastValidFrameId = hand.frame.id;
+    // const timeout = () => {
+      
+    // }
+    if(handFound){
+      dataArray.push(jsontoarray(dataGlobal))
+      setTimeout(()=>{handFound = false}, 1000)
+    }else{
+      prediksi();
+      handFound = true;
+    }
+    // console.log(handFound)
+    
+    
   },
 });
-var tes = () => {
-  console.log(controller.frame(0).id + " " + controller.frame(20).id);
-};
 const buttonSend = () => {
-  // console.log(jsontoarray(dataGlobal))
-  // send(dataGlobal)
-  // run(jsontoarray(dataGlobal))
   predict(jsontoarray(dataGlobal))
+}
+const prediksi = () => {
+  if(dataArray.length>50){
+    console.log(dataArray.length);
+    
+    getResult();
+    dataArray = [];
+  }
+}
+const getResult = async() => {
+  const res = await predict(dataArray[30]);
+  console.log(res)
 }

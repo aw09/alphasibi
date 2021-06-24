@@ -1,5 +1,4 @@
 var url = "http://34.101.133.218:8000/leap"
-const timer = ms => new Promise(res => setTimeout(res, ms))
 const reasemblyData = (hand) =>{
     data = {palm: {type: hand.type, position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}, finger: ""}
     let dataFinger = []
@@ -28,37 +27,16 @@ const jsontoarray = (jsonfile) => {
     })
     return array
 }
-const send = async (jsonFile) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = xhr.responseText
-            console.log(response)
-        }
-    };
-    let data = JSON.stringify(jsonFile)
-    
-    xhr.send(data)
-}
-
-
 
 const predict = async(data) => {
     let bodyFormData = new FormData();
     bodyFormData.append('test', data);
-    axios({
+    const promise = axios({
         method: "post",
         url: url,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(function (response) {
-          console.log(response.data.values.None);
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    })
+    const dataPromise = promise.then((response) => response.data.values)
+    return dataPromise
 }
