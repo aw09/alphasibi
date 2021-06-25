@@ -78,13 +78,23 @@ const buttonSend = () => {
 }
 const prediksi = () => {
   if(dataArray.length>50){
-    console.log(dataArray.length);
+    // console.log(dataArray.length);
     
     getResult();
     dataArray = [];
   }
 }
 const getResult = async() => {
-  const res = await predict(dataArray[30]);
+  // console.log(calcAverage(dataArray))
+  const res = await predict(calcAverage(dataArray));
   console.log(res)
+}
+const switchCheck = () => {
+  let switchButton  = document.getElementById('switch');
+  if(switchButton.checked==false){
+    controller.disconnect();
+  }
+  else{
+    controller.connect()
+  }
 }

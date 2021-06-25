@@ -1,4 +1,5 @@
-var url = "http://34.101.133.218:8000/leap"
+// const url = "http://34.101.133.218:8000/leap"
+const url = "http://localhost:9000/leap"
 const reasemblyData = (hand) =>{
     data = {palm: {type: hand.type, position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}, finger: ""}
     let dataFinger = []
@@ -39,4 +40,16 @@ const predict = async(data) => {
     })
     const dataPromise = promise.then((response) => response.data.values)
     return dataPromise
+}
+
+const calcAverage = (dataArr) => {
+    let average = [];
+    for(let i=0;i<dataArr[0].length;i++){
+        let total = 0;
+        for(let index=0;index<dataArr.length;index++){
+            total += dataArr[index][i]
+        }
+        average.push(total/69)
+    }
+    return average
 }
