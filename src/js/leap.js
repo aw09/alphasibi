@@ -86,8 +86,8 @@ const prediksi = () => {
 }
 const getResult = async() => {
   // console.log(calcAverage(dataArray))
-  const res = await predict(calcAverage(dataArray));
-  console.log(res)
+  const res = await predict(calcAverage(dataArray), 1);
+  document.getElementById('res').innerHTML = res;
 }
 const switchCheck = () => {
   let switchButton  = document.getElementById('switch');

@@ -1,5 +1,5 @@
-// const url = "http://34.101.133.218:8000/leap"
-const url = "http://localhost:9000/leap"
+const url = "http://34.101.133.218:8000/leap"
+// const url = "http://localhost:9000/leap"
 const reasemblyData = (hand) =>{
     data = {palm: {type: hand.type, position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}, finger: ""}
     let dataFinger = []
@@ -29,9 +29,10 @@ const jsontoarray = (jsonfile) => {
     return array
 }
 
-const predict = async(data) => {
+const predict = async(data, get=3) => {
     let bodyFormData = new FormData();
     bodyFormData.append('test', data);
+    bodyFormData.append('get', get);
     const promise = axios({
         method: "post",
         url: url,

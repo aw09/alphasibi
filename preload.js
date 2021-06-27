@@ -21,10 +21,3 @@ window.send = (data) => {
 window.log = (data) => {
   console.log(data)
 }
-const io = require("socket.io-client")
-var socket = io.connect("http://localhost:5000");
-
-socket.on("seq-num", (msg) => console.info(msg));
-socket.on('connect', function() {
-    socket.emit('message', {data: 'I\'m connected!'});
-});

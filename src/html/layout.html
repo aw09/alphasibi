@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    function includeHTML() {
-        var z, i, elmnt, file, xhttp;
-        /*loop through a collection of all HTML elements:*/
-        z = document.getElementsByTagName("*");
-        for (i = 0; i < z.length; i++) {
-            elmnt = z[i];
-            /*search for elements with a certain atrribute:*/
-            file = elmnt.getAttribute("include");
-            if (file) {
-                /*make an HTTP request using the attribute value as the file name:*/
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4) {
-                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-                        /*remove the attribute, and call this function once more:*/
-                        elmnt.removeAttribute("include");
-                        includeHTML();
+    <script>
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /*loop through a collection of all HTML elements:*/
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("include");
+                if (file) {
+                    /*make an HTTP request using the attribute value as the file name:*/
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                            if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                            /*remove the attribute, and call this function once more:*/
+                            elmnt.removeAttribute("include");
+                            includeHTML();
+                        }
                     }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+                    /*exit the function:*/
+                    return;
                 }
-                xhttp.open("GET", file, true);
-                xhttp.send();
-                /*exit the function:*/
-                return;
             }
-        }
-    };
-</script>
-
+        };
+    </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/src/css/style.css">
     <script src="./node_modules/leapjs/leap-1.1.0.js"></script>
     <script src="./node_modules/leapjs/examples/lib/leap-plugins-0.1.6.js"></script>
     <script src="./node_modules/leapjs-plugins/main/hand-hold/leap.hand-hold.js"></script>
@@ -64,7 +63,7 @@
                     </tr>
                     <tr>
                         <td><input id="switch" type="checkbox" checked onchange="switchCheck()"></td>
-
+                        
                     </tr>
                     <!-- <tr>
                         <td>Device</td>
@@ -79,24 +78,22 @@
         <div class="col-sm-9 content" style="background-color: #F9F9F9; padding: 0vh 1vh 0vh vh;">
             <h1 id="header" style="color: #707070;">Pengenalan</h1>
             <div id="pengenalan">
-                <div include="./src/html/content/pengenalan.html"></div>
+                <div include="pengenalan.html"></div> 
             </div>
             <div id="tes" style="padding: 10vh 10vh;">
-                <div id="pretes" include="./src/html/content/tes.html"></div>
-                <div id="startTes" hidden include="./src/html/content/startTes.html"></div>
-                <div id="endTes" hidden include="./src/html/content/endTes.html"></div>
-                <!-- <div id="alphabet"
+
+                <div id="alphabet"
                     style="border-radius: 1vh; border: 5px solid lightgrey; width: 10vh; height: 10vh; text-align: center;  justify-items: center;">
                 </div>
                 <br>
                 <button type="button" onclick="knn('A')">A</button>
-                <button type="button" onclick="knn('B')">B</button> -->
+                <button type="button" onclick="knn('B')">B</button>
                 <!-- <button onclick="randomAlphabet()" style="height: 5vh; width: 10vh; border-radius: 50vh; background-color: #cc1515;">Next</button> -->
             </div>
             <div id="permainan">
                 <div include="permainan.html"></div>
             </div>
-
+            
         </div>
         <!-- *End CONTENT -->
     </div>
@@ -108,7 +105,6 @@
         window.popper = require("popper.js");
         require("bootstrap");
     </script>
-    <script src="./src/js/tes.js"></script>
     <script>
         var navbar = document.getElementsByClassName("nav-item")
         const reset = () => {
@@ -142,6 +138,7 @@
     <script src="./src/js/socket.js"></script>
     <script src="./src/js/send.js"></script>
     <script src="./src/js/leap.js"></script>
+    
 </body>
 
 </html>
