@@ -1,12 +1,16 @@
-<div class="d-flex">
-    <h2 id="countDownTes" class="mx-auto shadow p-3 mb-5 bg-white rounded">1:00</h2>
-</div>
-<div class="d-flex">
-    <h2 class="mx-auto shadow p-3 mb-5 bg-white rounded ">A</h2>
-</div>
-<div class="float-right">
-    <div class=" d-flex">
-        <h2>Skor : </h2>
+<div class="position-relative">
+    <div class="d-flex">
+        <h2 id="countDownTes" class="mx-auto shadow p-3 mb-5 bg-white rounded">1:00</h2>
     </div>
-    <div class=" d-flex"><button onclick="endTes()">STOP</button></div>
+    <div class="d-flex">
+        <h2 id="challengeTes" class="mx-auto shadow p-3 mb-5 bg-white rounded ">A</h2>
+    </div>
+    <div style="position: absolute; top: 0;">
+        <div class=" d-flex">
+            <h2>Skor : <span id="pointTes">0</span></h2>
+        </div>
+        <div class=" d-flex"><button onclick="endTes()">STOP</button></div>
+    </div>
+    <button class="d-flex shadow p-3 mb-5 bg-white rounded" onclick="randomNext()"><h2 class="mx-auto">SKIP (Spacebar)</h2></button>
 </div>
+<p id="res"></p>
