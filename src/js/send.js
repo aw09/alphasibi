@@ -44,13 +44,15 @@ const predict = async(data, get=3) => {
 }
 
 const calcAverage = (dataArr) => {
+    const dataCount = dataArr.length;
+    const dataFeatures = dataArr[0].length; 
     let average = [];
-    for(let i=0;i<dataArr[0].length;i++){
+    for(let i=0;i<dataFeatures;i++){
         let total = 0;
-        for(let index=0;index<dataArr.length;index++){
+        for(let index=0;index<dataCount;index++){
             total += dataArr[index][i]
         }
-        average.push(total/69)
+        average.push(total/dataFeatures)
     }
     return average
 }
