@@ -82,25 +82,21 @@
             <div id="pengenalan">
                 <div include="./src/html/content/pengenalan.html"></div>
             </div>
-            <div id="tes" style="padding: 10vh 10vh;">
+            <div id="tes" style="padding: 10vh">
                 <div id="preTes" include="./src/html/content/tes.html"></div>
                 <div id="startTes" hidden include="./src/html/content/startTes.html"></div>
                 <div id="endTes" hidden include="./src/html/content/endTes.html"></div>
-                <!-- <div id="alphabet"
-                    style="border-radius: 1vh; border: 5px solid lightgrey; width: 10vh; height: 10vh; text-align: center;  justify-items: center;">
-                </div>
-                <br>
-                <button type="button" onclick="knn('A')">A</button>
-                <button type="button" onclick="knn('B')">B</button> -->
-                <!-- <button onclick="randomAlphabet()" style="height: 5vh; width: 10vh; border-radius: 50vh; background-color: #cc1515;">Next</button> -->
             </div>
-            <div id="permainan">
-                <div include="permainan.html"></div>
-            </div>
-
+            <div id="permainan" >
+                <p type="button" onclick="showMenuPermainan()">Kembali ke menu permainan</p>
+                <div style=" padding: 5vh;" include="./src/html/content/permainan.html"></div>
         </div>
-        <!-- *End CONTENT -->
+
     </div>
+    <!-- *End CONTENT -->
+    </div>
+    <!-- <script src="./src/js/guntingBatuKertas.js"></script> -->
+    <!-- <script src="./src/js/permainan.js"></script> -->
     <script>
         includeHTML();
     </script>
@@ -110,6 +106,8 @@
         require("bootstrap");
     </script>
     <script src="./src/js/tes.js"></script>
+    <script src="./src/js/guntingBatuKertas.js"></script>
+    <script src="./src/js/permainan.js"></script>
     <script>
         var navbar = document.getElementsByClassName("nav-item")
         const reset = () => {
@@ -121,11 +119,14 @@
         };
         const select = (id) => {
             reset();
-            var selected = document.getElementById(id);
-            var text = selected.textContent;
+            selectedTab = document.getElementById(id);
+            var text = selectedTab.textContent;
             document.getElementById("header").innerHTML = text;
-            selected.setAttribute('class', "nav-item selected")
+            selectedTab.setAttribute('class', "nav-item selected")
             document.getElementById(text.toLowerCase()).setAttribute('class', "");
+            if (id == 3) {
+                gbk.start()
+            }
         }
         select(1);
     </script>
@@ -140,7 +141,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script> -->
     <script src="./src/js/model.js"></script>
-    <script src="./src/js/socket.js"></script>
+    <!-- <script src="./src/js/socket.js"></script> -->
     <script src="./src/js/send.js"></script>
     <script src="./src/js/leap.js"></script>
 </body>

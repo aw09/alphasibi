@@ -33,6 +33,7 @@ const predict = async(data, get=3) => {
     let bodyFormData = new FormData();
     bodyFormData.append('test', data);
     bodyFormData.append('get', get);
+    // bodyFormData.append('knn', 'True');
     const promise = axios({
         method: "post",
         url: url,

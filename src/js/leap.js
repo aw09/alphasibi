@@ -78,7 +78,7 @@ const buttonSend = () => {
 }
 const prediksi = () => {
   if(dataArray.length>50){
-    // console.log(dataArray.length);
+    console.log(dataArray.length);
     
     getResult();
     dataArray = [];
