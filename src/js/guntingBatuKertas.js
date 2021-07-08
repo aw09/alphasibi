@@ -6,6 +6,7 @@ class GuntingBatuKertas {
         this.userChoice = '';
     }
     start() {
+        console.log("GBK Started");
         this.getPage();
         let random = this.generateRandomAbjad();
         this.changePage(random);

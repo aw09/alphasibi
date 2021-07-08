@@ -65,3 +65,11 @@ ul {
   border-color: #cc1515;
   width: 100%;
 }
+.table-t3 {
+  width: 100px;
+  height: 100px;
+  padding: 5%;
+  margin: auto;
+  text-align: center;
+  font-size: 50px;
+}
