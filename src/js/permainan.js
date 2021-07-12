@@ -1,5 +1,5 @@
 var gbk = new GuntingBatuKertas();
-
+var t3 = new TicTacToe();
 const permainanGuntingBatuKertas = () => {
   hideAllPermainan();
   document.getElementById('guntingBatuKertas').hidden = false;
@@ -8,6 +8,7 @@ const permainanGuntingBatuKertas = () => {
 const permainanTicTacToe = () => {
   hideAllPermainan();
   document.getElementById('tictactoe').hidden = false;
+  t3.start();
 }
 const hideAllPermainan = () => {
   let container = document.getElementById('permainan-content');
