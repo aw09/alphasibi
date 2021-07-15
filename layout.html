@@ -88,7 +88,7 @@
                 <div id="endTes" hidden include="./src/html/content/endTes.html"></div>
             </div>
             <div id="permainan" >
-                <p type="button" onclick="showMenuPermainan()">Kembali ke menu permainan</p>
+                <p type="button" onclick="permainan.showMenuPermainan()">Kembali ke menu permainan</p>
                 <div style=" padding: 5vh;" include="./src/html/content/permainan.html"></div>
         </div>
 
@@ -109,6 +109,21 @@
     <script src="./src/js/guntingBatuKertas.js"></script>
     <script src="./src/js/tictactoe.js"></script>
     <script src="./src/js/permainan.js"></script>
+
+    </script>
+    <!--axios-->
+    <script src="./src/js/axios.min.js"></script>
+    <script src="./src/js/opensibi.js"></script>
+    <script src="./src/js/leap.js"></script>
+    <script>
+        leap = new LeapMotion();
+        opensibi = new OpenSIBI();
+
+        tes = new Tes();
+        permainan = new Permainan();
+        
+        leap.start();
+    </script>
     <script>
         var navbar = document.getElementsByClassName("nav-item")
         const reset = () => {
@@ -116,6 +131,7 @@
                 var text = navbar[i].textContent.toLowerCase();
                 navbar[i].setAttribute('class', "nav-item");
                 document.getElementById(text).setAttribute('class', text + " hidden");
+                opensibi.changeMode("");
             }
         };
         const select = (id) => {
@@ -128,20 +144,6 @@
         }
         select(1);
     </script>
-
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#permainan').attr('src', './src/run-dino/index.html');
-        });
-    </script>
-    <!--axios-->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script> -->
-    <script src="./src/js/model.js"></script>
-    <!-- <script src="./src/js/socket.js"></script> -->
-    <script src="./src/js/send.js"></script>
-    <script src="./src/js/leap.js"></script>
 </body>
 
 </html>
