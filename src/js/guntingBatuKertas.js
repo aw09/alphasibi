@@ -66,8 +66,8 @@ class GuntingBatuKertas {
 
     }
     generateRandomAbjad() {
-        let randomAbjad = [...AbjadList];
-        shuffle(randomAbjad);
+        let randomAbjad = [...abjadList];
+        this.shuffle(randomAbjad);
         randomAbjad = randomAbjad.slice(0, this.option.length);
         return randomAbjad;
     }

@@ -11,13 +11,3 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-window.test = function() {
-  console.log("tes")
-}
-window.send = (data) => {
-  console.log(data)
-  socket.emit("message", data)
-}
-window.log = (data) => {
-  console.log(data)
-}

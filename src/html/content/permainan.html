@@ -1,7 +1,17 @@
-<div id="permainan-content" style="position: relative;">
-    <div id="menuGBK" onclick="permainan.permainanGuntingBatuKertas()" >Gunting Batu Kertas</div>
+<p hidden id="kembaliMenuPermainan" type="button" onclick="permainan.showMenu()">Kembali ke menu permainan</p>
+<div id="permainan-content" style="display: flex; justify-content: space-evenly; position: relative;">
+    <div id="menuGBK" class="card text-center btn btn-light" type="button" style="text-align: center; display: inline; "
+        onclick="permainan.permainanGuntingBatuKertas()">
+        <img src="./src/images/gbk.png" width="250px"alt="Gunting Batu Kertas">
+        <p style="position: inherit;">Gunting Batu Kertas</p>
+    </div>
     <div id="guntingBatuKertas" include="./src/html/content/permainan/guntingBatuKertas.html" hidden></div>
-    <div id="menuT3" onclick="permainan.permainanTicTacToe()" >Tic Tac Toe</div>
+
+    <div id="menuT3" class="card text-center btn btn-light" type="button" style="text-align: center; display: inline;"
+        onclick="permainan.permainanTicTacToe()">
+        <img src="./src/images/t3.png" alt="Tic Tac Toe">
+        <p style="position: inherit;">Tic Tac Toe</p>
+    </div>
     <div id="tictactoe" include="./src/html/content/permainan/tictactoe.html" hidden></div>
 </div>
 

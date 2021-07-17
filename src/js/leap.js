@@ -1,6 +1,5 @@
 class LeapMotion {
   constructor() {
-    console.log("masuk construct")
     this.controller = new Leap.Controller({
       host: "127.0.0.1",
       port: 6437,
@@ -8,8 +7,13 @@ class LeapMotion {
       frameEventName: "deviceFrame",
       useAllPlugins: true,
     });
+    console.log(document.getElementById('visualizer'))
     this.controller.use("handHold");
     this.controller.use("handEntry");
+    // this.controller.use("riggedHand");
+    // this.controller.use("riggedHand", {
+    //   parent: 
+    // });
     this.controller.on("deviceAttached", function () {
       let status = document.getElementById("device-status");
       status.innerHTML = "On";
@@ -29,6 +33,7 @@ class LeapMotion {
       LeapMotion.handFound = false;
       // checkData();
     });
+    // window.controller = Leap.loopController
     LeapMotion.dataArray = [];
     LeapMotion.handFound = false;
   }

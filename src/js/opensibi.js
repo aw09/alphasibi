@@ -1,6 +1,8 @@
 class OpenSIBI{
     constructor(mode=""){
         this.url = "http://34.101.133.218:8000/leap";
+        // this.url = "http://localhost:9000/leap";
+        this.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MjAsImlkX3VzZXIiOjEsInByb2plY3RfbmFtZSI6ImxlYXAifQ.31Eb0-jL8YgPUyeVtzWTZ6fECYp5nMhtm7Y4PyMBbaw";
         this.mode = mode;
     }
     changeMode(mode){
@@ -37,7 +39,9 @@ class OpenSIBI{
             method: "post",
             url: this.url,
             data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: {
+                "Authorization": `Bearer ${this.token}`,
+                "Content-Type": "multipart/form-data" },
         })
         const dataPromise = promise.then((response) => response.data.values)
         return dataPromise

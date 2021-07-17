@@ -12,7 +12,7 @@ class Tes {
         this.preTesElem.hidden = true;
         this.startTesElem.hidden = false;
         this.endTesElem.hidden = true;
-        this.availableTesChallenge  = [...AbjadList];
+        this.availableTesChallenge  = [...abjadList];
         this.randomNext()
     
         this.countDown("countDownTes");
