@@ -41,7 +41,6 @@ class LeapMotion {
     let data = {palm: {type: hand.type, position: hand.palmPosition, direction: hand.palmPosition, velocity: hand.palmVelocity}, finger: ""}
     let dataFinger = []
     let finger = hand.fingers.forEach(function (finger){
-        // info.innerHTML +=  finger.type+','+finger.dipPosition+','+finger.pipPosition+','+finger.mcpPosition+','+finger.carpPosition+'<br/>'
         dataFinger.push({type: finger.type, dip: finger.dipPosition, pip: finger.pipPosition, mcp: finger.mcpPosition, carp: finger.carpPosition})
     })
     data.finger = dataFinger
@@ -51,7 +50,7 @@ class LeapMotion {
     this.controller.connect();
     Leap.loop({
       frame: function (frame) {
-        info.innerHTML = frame.currentFrameRate;
+        // info.innerHTML = frame.currentFrameRate;
       },
       hand: function (hand) {
         let dataJson = LeapMotion.reasemblyData(hand);
@@ -81,22 +80,7 @@ class LeapMotion {
     // console.log(LeapMotion.dataArray.length)
     predictZero = await opensibi.predict(opensibi.calcAverage(LeapMotion.dataArray), 0);
     // predictNumber = await predict(calcAverage(LeapMotion.dataArray), 0, number = true);
-    document.getElementById("res").innerHTML = predictZero;
+    document.getElementById("result").innerHTML = predictZero;
   }
 
 }
-
-
-
-// var leap;
-// const switchCheck = () => {
-//   let switchButton = document.getElementById("switch");
-//   if (switchButton.checked) {
-//     leap = new LeapMotion();
-//     leap.start();
-//   } else {
-//     leap.stop();
-//     leap = ""
-//   }
-// };
-

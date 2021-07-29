@@ -102,6 +102,11 @@
         </div>
     <!-- *End CONTENT -->
     </div>
+    <button style="position: absolute; bottom: 20vh; left: 100vh; display: none;" onclick="pengenalan.practice(this)" id="buttonLatihan"class="card text-center btn btn-white mx-auto font-weight-bold">LATIHAN</button>
+    <div id="resultPengenalan" style="display:none; position: absolute; bottom: 10vh; left: 80vh;">
+        Hasil pengenalan gerakan : &nbsp; &nbsp;
+        <h2 id="result" style="display: inline;"></h2>
+    </div>
     <!-- <script src="./src/js/guntingBatuKertas.js"></script> -->
     <!-- <script src="./src/js/permainan.js"></script> -->
     <script>
@@ -140,7 +145,7 @@
                 var text = navbar[i].textContent.toLowerCase();
                 navbar[i].setAttribute('class', "nav-item");
                 document.getElementById(text).setAttribute('class', text + " hidden");
-                opensibi.changeMode("number");
+                pengenalan.showMenu();
             }
         };
         const select = (id) => {

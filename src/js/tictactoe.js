@@ -37,10 +37,34 @@ class TicTacToe {
   }
   checkState(a, b, c) {
     const [isOver, winner] = this.checkSum(a, b, c);
-    if (isOver) {
+    const isDraw = this.checkDraw();
+    if (isOver || isDraw) {
       this.turn = 0;
       this.winner = winner;
+      this.overState();
     }
+  }
+  overState(){
+    console.log('over');
+    let table = document.getElementsByClassName("table-t3");
+    for(let i=0;i<table.length;i++){
+      let child = table[i].children[0];
+      // console.log(child.innerHTML != 'X' && child != 'O');
+      if(child.innerHTML != "O" && child.innerHTML != "X" ){
+        child.innerHTML = "" ;
+      }
+    }
+    let winner = (this.winner == 1) ? 'O' : 'X';
+    this.showAlert("Pemenangnya adalah "+winner, 1000);
+  }
+  checkDraw(){
+    let arr = this.board.flat();
+    let filled = 0;
+    arr.forEach((e) => {
+      if(e!=0)
+        filled += 1
+    });
+    return (filled == arr.length);
   }
   checkSum(a, b, c) {
     let total = a + b + c;
@@ -52,7 +76,7 @@ class TicTacToe {
     let table = document.getElementsByClassName("table-t3");
     const listener = () => {
       const copyBoard = this.board.flat();
-      document.getElementById("pnum").innerHTML = predictZero;
+      // document.getElementById("pnum").innerHTML = predictZero;
       for (let i = 0; i < copyBoard.length; i++) {
         if (predictZero == i + 1 && copyBoard[i] == 0) {
           this.action(table[i]);

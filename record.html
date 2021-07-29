@@ -7,27 +7,20 @@
     <script src="./node_modules/leapjs/leap-1.1.0.min.js"></script>
     <script src="./node_modules/leapjs/examples/lib/leap-plugins-0.1.6.js"></script>
 
-    <!-- <script src="./node_modules/leapjs-plugins/main/hand-hold/leap.hand-hold.js"></script> -->
     <script src="./node_modules/leapjs-plugins/main/hand-entry/leap.hand-entry.js"></script>
     <title>Document</title>
 </head>
 
 <body>
 
-    <!-- <script src="./src/leapjs/1.0.0.js"></script> -->
-    <!-- <script src="./src/leapjs/0.6.3.js"></script> -->
-    <!-- <script src="./node_modules/leapjs/leap-1.1.0.js"></script> -->
-    <!-- <script>const Leap = require('leapjs')</script> -->
+
     <p></p>
     <p style="margin-left: 100px" id="info"></p>
     <p style="margin-left: 100px" id="status" class="status"></p>
     <input type="text" id="label"/><input type="number" id="number" step="1">
     <input type="button" value="record gesture" onclick="record()" id="recorder"></input>
     <div id="frame"></div>
-    <!-- <iframe style="position: absolute; bottom: 1; height: 500px;" src="./visualizer.html" frameborder="0" width="800" height="300"></iframe> -->
 
-    <!-- <script src="https://js.leapmotion.com/leap-plugins-0.1.8.js"></script> -->
-    <!-- <script src="//js.leapmotion.com/leap-0.6.3.js"></script> -->
     <script>
         var info = document.getElementById('info');
         var status = document.getElementById('status');
@@ -36,6 +29,8 @@
         var number = document.getElementById('number');
         var label = document.getElementById('label');
         (label.value=="") && (label.value = 'None')
+
+        // ! LABEL yang akan digunakan 
         var folder = '9';
         var dataLength = 33;
         number.value = 0;
@@ -80,23 +75,7 @@
 
         const record = () => {
             changeRecording();
-            // setTimeout(function(){
-            //     changeRecording();
-            //     let koef = arrayData.length / dataLength;
-            //     let index = [...Array(dataLength).keys()];
-            //     let roundedIndex = [];
-            //     let tempArrayData = []
-            //     for(let i=0; i<index.length;i++){
-            //         index[i]+=1
-            //         if(i!=0)
-            //             index[i]+=koef;
-            //         const rounded = Math.round(index[i]);
-            //         tempArrayData.push(arrayData[rounded]);
-            //         // roundedIndex.push(rounded);
-            //     }
-            //     arrayData = tempArrayData;
-                
-            // }, 2000);
+
             
         }
         const changeRecording = () => {
@@ -108,11 +87,8 @@
         
         Leap.loop({
 
-            // frame callback is run before individual frame components
             frame: function (frame) {
                 info.innerHTML = ''
-                // if(arrayData.length > 1)
-                    // console.log(arrayData)
             },
 
             // hand callbacks are run once for each hand in the frame

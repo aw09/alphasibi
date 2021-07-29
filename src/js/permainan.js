@@ -32,5 +32,6 @@ class Permainan {
     this.hideAllPermainan();
     document.getElementById('menuGBK').hidden = false;
     document.getElementById('menuT3').hidden = false;
+    this.t3.reset();
   }
 }

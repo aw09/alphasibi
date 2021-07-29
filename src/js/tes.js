@@ -1,14 +1,18 @@
 class Tes {
     constructor(){
         this.timer
-        this.preTesElem = document.getElementById('preTes');
-        this.startTesElem = document.getElementById('startTes');
-        this.endTesElem = document.getElementById('endTes');
+        this.preTesElem;
+        this.startTesElem;
+        this.endTesElem;
         this.availableTesChallenge;
         this.skor = 0;
     }
     
     start = () => {
+        this.preTesElem = document.getElementById('preTes');
+        this.startTesElem = document.getElementById('startTes');
+        this.endTesElem = document.getElementById('endTes');
+
         this.preTesElem.hidden = true;
         this.startTesElem.hidden = false;
         this.endTesElem.hidden = true;

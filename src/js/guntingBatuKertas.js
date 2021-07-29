@@ -11,6 +11,7 @@ class GuntingBatuKertas {
         let random = this.generateRandomAbjad();
         this.changePage(random);
         this.addListener(random);
+        opensibi.changeMode('huruf')
     }
     restart(){
         this.showStartPage();
@@ -70,6 +71,9 @@ class GuntingBatuKertas {
         this.shuffle(randomAbjad);
         randomAbjad = randomAbjad.slice(0, this.option.length);
         return randomAbjad;
+    }
+    shuffle = array => {
+        array.sort(() => Math.random() - 0.5);
     }
 
 }
